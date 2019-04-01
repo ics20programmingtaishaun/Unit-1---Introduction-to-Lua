@@ -1,5 +1,5 @@
--- Title: NumericTextFields
--- Name: Your Name
+-- Title: Math Fun
+-- Name: Taishaun Johnson
 -- Course: ICS2O/3C
 -- This program displays a math question and asks the user
 -- to answer in a numeric textfeild terminal.
@@ -25,6 +25,7 @@ local userAnswer
 local correctAnswer
 local incorrectAnswer
 local incorrectObject
+local roundNumber1 = .05
 -----------------------------------------------------------------------
 -- Local Functions
 -----------------------------------------------------------------------
@@ -34,7 +35,7 @@ local function AskQuestion()
 	randomOperator = math.random(1,4) 
 	-- generate 2 random numbers
 	randomNumber1 = math.random(20,40)
-	randomNumber2 = math.random(0,20)
+	randomNumber2 = math.random(0,10)
 
 	-- if the random operator is 1, then do addition
 	if (randomOperator == 1) then
@@ -68,9 +69,14 @@ local function AskQuestion()
 		correctAnswer = randomNumber1 / randomNumber2
 
 		-- create question in text object 
-		questionObject.text = randomNumber1 .. " / " .. randomNumber2 .. " = "
-
-	-- if the random operator is 3, then do multiplication
+		questionObject.text = randomNumber1 .. " / " .. randomNumber2 .. " = " 
+        function round(correctAnswer, numDecimalPlaces) 
+        if numDecimalPlaces and numDecimalPlaces>0.05 then
+        	local mult = 0.10^numDecimalPlaces
+        	return math.floor(correctAnswer * mult + 0.1) / mult
+        end
+        return math.floor(correctAnswer + 0.1)
+      end  	
 	end	
 end 
 
