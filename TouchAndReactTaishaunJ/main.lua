@@ -35,5 +35,15 @@ textObject.isVisible = false
 -- Discription: when blue button is clicked, it will make the text 
 -- appear with the red button, and make the blue button disappear
 local function BlueButtonListener(touch)
-	-- body
+	if (touch.phase == "began") then 
+		blueButton.isVisible = false 
+		redButton.isVisible = true 
+		textObject.isVisible = true 
+	end 
+
+	if (touch.phase == "ended") then 
+		blueButton.isVisible = true 
+		redButton.isVisible = false 
+		textObject. isVisible = false 
+	end
 end
