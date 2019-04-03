@@ -23,9 +23,9 @@ local randomNumber1
 local randomNumber2
 local userAnswer
 local correctAnswer
+local correctAnswerD
 local incorrectAnswer
 local incorrectObject
-local roundNumber1 = .05
 -----------------------------------------------------------------------
 -- Local Functions
 -----------------------------------------------------------------------
@@ -66,17 +66,12 @@ local function AskQuestion()
 	-- otherwise, if the random operator is 2, do subtraction
 	elseif (randomOperator == 4) then 
 		-- calculate the correct answer
-		correctAnswer = randomNumber1 / randomNumber2
+		correctAnswer =math.round (randomNumber1 / randomNumber2) 
+      
 
 		-- create question in text object 
-		questionObject.text = randomNumber1 .. " / " .. randomNumber2 .. " = " 
-        function round(correctAnswer, numDecimalPlaces) 
-        if numDecimalPlaces and numDecimalPlaces>0.05 then
-        	local mult = 0.10^numDecimalPlaces
-        	return math.floor(correctAnswer * mult + 0.1) / mult
-        end
-        return math.floor(correctAnswer + 0.1)
-      end  	
+		questionObject.text = randomNumber1 .. " / " .. randomNumber2 .. " = "
+
 	end	
 end 
 
@@ -109,7 +104,7 @@ local function NumericFieldListener( event )
 			incorrectObject.isVisible = false
 			timer.performWithDelay(2000, HideCorrect)
 
-		elseif  (userAnswer ~= correctAnswer) then
+		else
 			incorrectObject.isVisible = true
 			correctObject.isVisible = false
 			timer.performWithDelay(2000, HideIncorrect)
