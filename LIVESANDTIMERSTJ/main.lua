@@ -1,0 +1,206 @@
+-- Title: NumericTextFields
+-- Name: Your Name
+-- Course: ICS2O/3C
+-- This program displays a math question and asks the user
+-- to answer in a numeric textfeild terminal.
+----------------------------------------------------------
+
+-- hide the status bar 
+display.setStatusBar(display.HiddenStatusBar)
+
+-- sets the background colour 
+display.setDefault("background", 1, 1, 1)
+
+---------------------------------------------------------
+-- Local Variables
+---------------------------------------------------------
+
+-- Create local variables
+local questionObject
+local correctObject
+local numericField 
+local randomNumber1
+local randomNumber2
+local userAnswer
+local correctAnswer
+local incorrectAnswer
+local incorrectObject
+-----------------------------------------------------------------------
+-- Local Functions
+-----------------------------------------------------------------------
+local function AskQuestion()
+	-- generate a random number between 1 and 4
+	-- *** Make sure to declare this variable above
+	randomOperator = math.random(1,4) 
+	-- generate 2 random numbers
+	randomNumber1 = math.random(20,40)
+	randomNumber2 = math.random(0,20)
+
+	-- if the random operator is 1, then do addition
+	if (randomOperator == 1) then
+
+		-- calculate the correct answer
+		correctAnswer = randomNumber1 + randomNumber2
+
+		-- create question in text object 
+		questionObject.text = randomNumber1 .. " + " .. randomNumber2 .. " = "
+
+	-- otherwise, if the random operator is 2, do subtraction
+	elseif (randomOperator == 2) then 
+		-- calculate the correct answer
+		correctAnswer = randomNumber1 - randomNumber2
+
+		-- create question in text object 
+		questionObject.text = randomNumber1 .. " - " .. randomNumber2 .. " = "
+
+	-- if the random operator is 3, then do multiplication
+	elseif (randomOperator == 3) then
+
+		-- calculate the correct answer
+		correctAnswer = randomNumber1 * randomNumber2
+
+		-- create question in text object 
+		questionObject.text = randomNumber1 .. " * " .. randomNumber2 .. " = "
+
+	-- otherwise, if the random operator is 2, do subtraction
+	elseif (randomOperator == 4) then 
+		-- calculate the correct answer
+		correctAnswer = math.round(randomNumber1 / randomNumber2)
+
+		-- create question in text object 
+		questionObject.text = randomNumber1 .. " / " .. randomNumber2 .. " = "
+
+	-- if the random operator is 3, then do multiplication
+	end	
+end 
+
+local function HideCorrect()
+	correctObject.isVisible = false 
+	AskQuestion()
+end 
+
+local function HideIncorrect()
+	incorrectObject.isVisible = false
+	AskQuestion()
+end
+
+local function NumericFieldListener( event )
+
+	-- User begins editing "numericField"
+	if ( event.phase == "began" ) then
+
+		-- clear text field
+		event.target.text = ""
+
+	elseif (event.phase == "submitted") then 
+
+		-- when the answer is submitted (enter key is pressed) set user input to user's answer
+		userAnswer = tonumber(event.target.text)
+
+		-- if the users answer and the correct answer are the same:
+		if (userAnswer == correctAnswer) then
+			correctObject.isVisible = true 
+			incorrectObject.isVisible = false
+			timer.performWithDelay(2000, HideCorrect)
+
+		elseif  (userAnswer ~= correctAnswer) then
+			incorrectObject.isVisible = true
+			correctObject.isVisible = false
+			timer.performWithDelay(2000, HideIncorrect)
+		end
+
+		-- clear text field
+		event.target.text = ""
+	end
+end
+
+------------------------------------------------------------------------
+-- Object Creation
+------------------------------------------------------------------------
+
+-- displays a question and sets the colour 
+questionObject = display.newText( "", display.contentWidth/3, display.contentHeight/2, nil, 50 )
+questionObject:setTextColor(0/255, 0/255, 0/255)
+
+-- create the correct text object and make it invisible 
+correctObject = display.newText( "Correct!", display.contentWidth/2, display.contentHeight*2/3, nil, 50 )
+correctObject:setTextColor(89/255, 89/255, 89/255)
+correctObject.isVisible = false 
+
+-- create the incorrect text object and make it invisible
+incorrectObject = display.newText( "Incorrect!", display.contentWidth/2, display.contentHeight*2/3, nil, 50 )
+incorrectObject:setTextColor(1, 0, 0)
+incorrectObject.isVisible = false
+
+-- create numeric field 
+numericField = native.newTextField(display.contentWidth/1.8, display.contentHeight/2, 150, 100)
+numericField.inputType = "decimal"
+
+-- add the event listener for the numeric field
+numericField:addEventListener( "userInput", NumericFieldListener)
+
+------------------------------------------------------------------------
+-- Function Calls 
+------------------------------------------------------------------------
+
+-- call the function to ask the question 
+AskQuestion()
+
+-- variables for the timer
+local totalSeconds = 10
+local secondsLeft = 10
+local clockText
+local countDownTimer 
+
+local lives = 3
+local heart1 
+local heart2
+local pointsObject
+local points
+---------------------------------------------------------------------------------------------------
+-- Local Functions
+---------------------------------------------------------------------------------------------------
+
+local function UpdateTime()
+
+	-- decrement the number of seconds 
+	secondsLeft = secondsLeft - 1
+
+	-- displays the number of seconds left in the clock object
+	clockText.text = secondsLeft .. ""
+
+	if (secondsLeft == 0) then
+		-- reset the number of seconds left 
+		secondsLeft = totalSeconds
+		lives = lives -1 
+
+		if (lives == 2) then
+			heart2.isVisible = false 
+		elseif (lives == 1) then 
+			heart1.isVisible = false
+		end 
+
+		AskQuestion()
+	end
+end
+
+-- function that calls the timer 
+local function StartTimer()
+	-- create a countdown timer that loops infinitely
+	countDownTimer = timer.performWithDelay( 1000, UpdateTime, 0)
+end
+
+-- Object Creation
+
+-- create the lives to display on the screen 
+heart1 = display.newImageRect("Images/heart.png", 100, 100)
+heart1.x = display.contentWidth * 7 / 8
+heart1.y = display.contentHeight * 1 / 7
+
+heart2 = display.newImageRect("Images/heart.png", 100, 100)
+heart2.x = display.contentWidth * 6 / 8
+heart2.y = display.contentHeight * 1 / 7
+
+-- call function
+UpdateTime()
+StartTimer() 
