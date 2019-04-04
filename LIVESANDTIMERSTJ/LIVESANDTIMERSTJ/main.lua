@@ -1,3 +1,4 @@
+-- Title: Math Fun
 -- Name: Taishaun Johnson
 -- Course: ICS2O/3C
 -- This program displays a math question and asks the user
@@ -146,3 +147,4 @@ numericField:addEventListener( "userInput", NumericFieldListener)
 -- call the function to ask the question 
 AskQuestion()
 
+-- create a 
