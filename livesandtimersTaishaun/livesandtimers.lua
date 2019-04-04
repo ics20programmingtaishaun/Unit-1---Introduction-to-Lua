@@ -1,5 +1,5 @@
--- Title: NumericTextFields
--- Name: Your Name
+-- Title: Math Fun
+-- Name: Taishaun Johnson
 -- Course: ICS2O/3C
 -- This program displays a math question and asks the user
 -- to answer in a numeric textfeild terminal.
@@ -9,7 +9,7 @@
 display.setStatusBar(display.HiddenStatusBar)
 
 -- sets the background colour 
-display.setDefault("background", 1, 0, 0)
+display.setDefault("background", 0, 1, 1)
 
 ---------------------------------------------------------
 -- Local Variables
@@ -34,7 +34,7 @@ local function AskQuestion()
 	randomOperator = math.random(1,4) 
 	-- generate 2 random numbers
 	randomNumber1 = math.random(20,40)
-	randomNumber2 = math.random(0,20)
+	randomNumber2 = math.random(0,10)
 
 	-- if the random operator is 1, then do addition
 	if (randomOperator == 1) then
@@ -70,7 +70,6 @@ local function AskQuestion()
 		-- create question in text object 
 		questionObject.text = randomNumber1 .. " / " .. randomNumber2 .. " = "
 
-	-- if the random operator is 3, then do multiplication
 	end	
 end 
 
@@ -145,12 +144,3 @@ numericField:addEventListener( "userInput", NumericFieldListener)
 
 -- call the function to ask the question 
 AskQuestion()
-
--- variables for the timer
-local totalSeconds = 10
-local secondsLeft = 10
-local clockText
-local countDownTimer 
-
-local lives = 3
-local heart1

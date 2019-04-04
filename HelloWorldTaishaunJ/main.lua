@@ -32,3 +32,9 @@ textObject = display.newText("By Taishaun Johnson", 500, 450, nil, 50)
 
 -- sets the color of the text 
 textObject:setTextColor(255/255, 0/255, 0/255) 
+
+-- Create a sound variable 
+local correctSound = audio.loadSound( "Sounds/correctSound.mp3")
+local correctSoundChannel 
+
+correctSoundChannel =  audio.play(correctSound)

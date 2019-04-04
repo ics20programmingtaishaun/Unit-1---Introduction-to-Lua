@@ -47,3 +47,27 @@ local function BlueButtonListener(touch)
 		textObject. isVisible = false 
 	end
 end
+	if (touch.phase == "began") then
+		blueButton.isVisible = false
+		redButton.isVisible = true 
+		textObject.isVisible = true
+	end
+
+	if (touch.phase == "ended") then
+		blueButton.isVisible = true
+		redButton.isVisible = false 
+		textObject.isVisible = false
+	end
+end
+
+local function RedButtonListener(touch)
+	if (touch.phase == "began") then
+		blueButton.isVisible = true
+		redButton.isVisible = false
+		textObject.isVisible = false 
+	end
+end
+-- add the respective listeners to each object
+blueButton:addEventListener("touch", BlueButtonListener)
+
+redButton:addEventListener("touch", RedButtonListener)

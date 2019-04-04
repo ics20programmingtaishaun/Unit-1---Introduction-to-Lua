@@ -9,7 +9,7 @@
 display.setStatusBar(display.HiddenStatusBar)
 
 -- sets the background colour 
-display.setDefault("background", 1, 1, 0)
+display.setDefault("background", 0, 175/255, 225/255)
 
 ---------------------------------------------------------
 -- Local Variables
@@ -69,8 +69,11 @@ local function NumericFieldListener( event )
 
 		-- if the users answer and the correct answer are the same:
 		if (userAnswer == correctAnswer) then
-			correctObject.isVisible = true 
+			correctObject.isVisible = true
 			incorrectObject.isVisible = false
+
+			correctSoundChannel = audio.play(correctSound)
+			
 			timer.performWithDelay(2000, HideCorrect)
 
 		elseif  (userAnswer ~= correctAnswer) then
@@ -103,7 +106,7 @@ incorrectObject:setTextColor(1, 0, 0)
 incorrectObject.isVisible = false
 
 -- create numeric field 
-numericField = native.newTextField(display.contentWidth/1.8, display.contentHeight/2, 150, 100)
+numericField = native.newTextField(display.contentWidth/1.75, display.contentHeight/2, 150, 100)
 numericField.inputType = "number"
 
 -- add the event listener for the numeric field
@@ -115,3 +118,4 @@ numericField:addEventListener( "userInput", NumericFieldListener)
 
 -- call the function to ask the question 
 AskQuestion()
+

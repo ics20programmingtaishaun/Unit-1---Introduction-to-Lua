@@ -66,3 +66,4 @@ settings =
 		android = { "Icon.png", "Icon-??.png", "Icon-???.png", "LaunchScreen.storyboardc", },
 	},
 }
+
