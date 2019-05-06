@@ -1,5 +1,5 @@
--- Title: NumericTextFields
--- Name: Your Name
+-- Title: Livesandtimers
+-- Name: Taishaun Johnson
 -- Course: ICS2O/3C
 -- This program displays a math question and asks the user
 -- to answer in a numeric textfeild terminal.
