@@ -44,8 +44,8 @@ local heartTwo
 local heartThree 
 local score = 0
 local pointsObject
-local gameOver  
-
+local gameOver = display.newImageRect("Images/gameOver.png", 10, 10)
+gameOver.isVisible = false
 -----------------------------------------------------------------------
 -- Local Functions
 -----------------------------------------------------------------------
@@ -117,7 +117,7 @@ local function UpdateTime()
 			heartOne.isVisible = false
 			whackSoundChannel = audio.play(whackSound) 
 			timer.cancel(countDownTimer)
-           
+			gameOver.isVisible = true
 		end
 	end
 end
@@ -176,9 +176,16 @@ local function NumericFieldListener( event )
 			correctObject.isVisible = false
 			timer.performWithDelay(2000, HideIncorrect)
 			incorrectSoundChannel = audio.play(incorrectSound)
-			lives = lives - 1
 			timer.pause(countDownTimer)
 			timer.performWithDelay(2000, KeepTime)
+			if (lives == 2) then 
+				heartThree.isVisible = false 
+				AskQuestion()
+			elseif (lives == 1) then 
+				heartTwo.isVisible = false
+				AskQuestion()
+			elseif (lives == 0) then 
+				heartOne.isVisible = false
 		end
 
 		-- clear text field
@@ -236,3 +243,4 @@ pointsObject.isVisible = true
 -- call the function to ask the question 
 AskQuestion()
 StartTimer()
+UpdateTime()
