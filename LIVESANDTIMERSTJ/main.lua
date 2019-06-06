@@ -162,10 +162,9 @@ local function NumericFieldListener( event )
 			correctObject.isVisible = true 
 			incorrectObject.isVisible = false
 			-- number of score 
-		score = score + 2
-
-		-- show the score 
-		scoreText.text = score .. " : score"
+			score = score + 2
+			-- show the score 
+			scoreText.text = score .. " : score"
 			timer.performWithDelay(2000, HideCorrect)
 			correctSoundChannel = audio.play(correctSound)
 			timer.pause(countDownTimer)
@@ -180,12 +179,13 @@ local function NumericFieldListener( event )
 			timer.performWithDelay(2000, KeepTime)
 			if (lives == 2) then 
 				heartThree.isVisible = false 
-				AskQuestion()
-			elseif (lives == 1) then 
-				heartTwo.isVisible = false
-				AskQuestion()
-			elseif (lives == 0) then 
-				heartOne.isVisible = false
+				AskQuestion()hear
+				elseif (lives == 1) then 
+					heartTwo.isVisible = false
+					AskQuestion()
+				elseif (lives == 0) then 
+					heartOne.isVisible = false
+				end	
 		end
 
 		-- clear text field
@@ -242,5 +242,5 @@ pointsObject.isVisible = true
 
 -- call the function to ask the question 
 AskQuestion()
-StartTimer()
 UpdateTime()
+StartTimer()
